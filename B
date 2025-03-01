@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+public class Biblioteca {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Libro libroMasCostoso = null;
+        double precioMasAlto = 0;
+        int cantidadLibros = 0;
+
+        // Bucle para ingresar libros
+        while (true) {
+            System.out.println("Ingrese el título del libro (o 'salir' para terminar): ");
+            String titulo = scanner.nextLine();
+            if (titulo.equalsIgnoreCase("salir")) {
+                break;
+            }
+
+            System.out.println("Ingrese el autor del libro: ");
+            String autor = scanner.nextLine();
+
+            System.out.println("Ingrese el año de publicación: ");
+            int anioPublicacion = scanner.nextInt();
+
+            System.out.println("Ingrese el precio del libro: ");
+            double precio = scanner.nextDouble();
+            scanner.nextLine(); // Limpiar el buffer
+
+            // Crear un nuevo libro
+            Libro libro = new Libro(titulo, autor, anioPublicacion, precio);
+            cantidadLibros++;
+
+            // Verificar si este libro es el más costoso
+            if (precio > precioMasAlto) {
+                precioMasAlto = precio;
+                libroMasCostoso = libro;
+            }
+        }
+
+        // Mostrar resultados
+        mostrarResultados(libroMasCostoso, cantidadLibros);
+        scanner.close();
+    }
+
+    private static void mostrarResultados(Libro libroMasCostoso, int cantidadLibros) {
+        if (libroMasCostoso != null) {
+            System.out.println("El libro más costoso es:");
+            System.out.println("Título: " + libroMasCostoso.getTitulo());
+            System.out.println("Autor: " + libroMasCostoso.getAutor());
+            System.out.println("Año de publicación: " + libroMasCostoso.getAnioPublicacion());
+            System.out.println("Precio: " + libroMasCostoso.getPrecio());
+        } else {
+            System.out.println("No se ingresaron libros.");
+        }
+
+        System.out.println("Cantidad de libros evaluados: " + cantidadLibros);
+    }
+}
